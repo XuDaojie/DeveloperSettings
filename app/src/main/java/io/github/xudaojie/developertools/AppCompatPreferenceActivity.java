@@ -1,11 +1,8 @@
 package io.github.xudaojie.developertools;
 
-import android.content.ContentResolver;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -28,27 +25,6 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            Tile tile = Tile.CREATOR.createFromParcel(Parcel.obtain());
-//            tile.setLabel("xxxx");
-//            tile.setIcon(Icon.createWithResource(this, R.drawable.ic_info_black_24dp));
-//            tile.setState(Tile.STATE_ACTIVE);
-//            tile.setContentDescription("xxx");
-//            TileService tileService = new TileService();
-        }
-
-//        findPreference()
-        final ContentResolver cr = getContentResolver();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//            SwitchPreference switchPreference =
-//            updateSwitchPreference(Settings.Global.getInt(cr, Settings.Global.ADB_ENABLED, 0));
-
-        }
-    }
-
-    void updateSwitchPreference(SwitchPreference switchPreference, boolean value) {
-        switchPreference.setChecked(value);
-//        mHaveDebugSettings |= value;
     }
 
     @Override

@@ -19,7 +19,7 @@
         </activity>
         <service android:name=".QuickSettingTile"
             android:icon="@drawable/ic_info_black_24dp"
-            android:label="xxx"
+            android:label="Tile"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
