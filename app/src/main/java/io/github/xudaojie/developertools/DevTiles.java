@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.RemoteException;
+import android.provider.Settings;
 import android.service.quicksettings.TileService;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -27,7 +28,7 @@ public class DevTiles extends TileService {
     }
 
     private static final String VIEW_DEBUG_LAYOUT_PROPERTY = "debug.layout";
-    private static int IBINDER_SYSPROPS_TRANSACTION = ('_'<<24)|('S'<<16)|('P'<<8)|'R';
+    private static int IBINDER_SYSPROPS_TRANSACTION = ('_' << 24) | ('S' << 16) | ('P' << 8) | 'R';
 
     public void refresh() {
 //        final boolean enabled = SystemProperties.getBoolean(View.DEBUG_LAYOUT_PROPERTY, false);
@@ -42,10 +43,26 @@ public class DevTiles extends TileService {
 //        new DevelopmentSettings.SystemPropPoker().execute(); // Settings app magic
 //        refresh();
 
-        SystemProperties.set(VIEW_DEBUG_LAYOUT_PROPERTY, "true");
-        new SystemPropPoker().execute();
+
         String tt = SystemProperties.get(VIEW_DEBUG_LAYOUT_PROPERTY);
         Log.i(TAG, "onClick: " + tt);
+
+        Settings.System.putInt(getContentResolver(),
+                "pointer_location", 1);
+//        Settings.System.putInt(getContentResolver(),
+//                "show_touches", 1);
+
+//        SystemProperties.set(VIEW_DEBUG_LAYOUT_PROPERTY, "true");
+//        new SystemPropPoker().execute();
+
+
+
+//        SysProp.set(this, VIEW_DEBUG_LAYOUT_PROPERTY, "true");
+//        SysProp.set(this, VIEW_DEBUG_LAYOUT_PROPERTY, "false");
+
+//        String debugLayout = Settings.Secure.getString(getContentResolver(), "debug.layout");
+//        String debugLayout = Settings.Secure.getString(getContentResolver(), Settings.Secure.ADB_ENABLED);
+//        Log.i(TAG, "onClick: " + debugLayout);
     }
 
     private static class SystemPropPoker extends AsyncTask<Void, Void, Void> {
