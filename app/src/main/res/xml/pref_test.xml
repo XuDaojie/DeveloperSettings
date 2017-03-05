@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="test_key"
+    android:summary="摘要"
+    android:title="Title">
+    <PreferenceCategory
+        android:title="输入">
+        <SwitchPreference
+            android:summary="显示点按操作的视觉反馈"
+            android:title="显示点按操作反馈"/>
+        <SwitchPreference
+            android:summary="屏幕叠加层显示当前触摸数据"
+            android:title="指针位置"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Test">
+        <EditTexitPreference
+            android:key="test_et_pref"
+            android:summary="Test EditTextPreference"
+            android:title="EditTextPreference"/>
+        <SwitchPreference
+            android:summary="Test SwitchPreference"
+            android:title="SwitchPreference"/>
+        <RingtonePreference
+            android:summary="Test RingtonePreference"
+            android:title="RingtonePreference"/>
+        <ListPreference
+            android:entries="@array/list_preference_test"
+            android:entryValues="@array/list_preference_checked_test"
+            android:summary="Test ListPreference"
+            android:title="ListPreference"/>
+        <MultiSelectListPreference
+            android:entries="@array/list_preference_entries"
+            android:entryValues="@array/list_preference_entry_values"
+            android:summary="Test MultiSelectListPreference"
+            android:title="MultiSelectListPreference"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

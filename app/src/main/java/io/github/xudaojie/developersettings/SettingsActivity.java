@@ -1,4 +1,4 @@
-package io.github.xudaojie.developertools;
+package io.github.xudaojie.developersettings;
 
 
 import android.annotation.TargetApi;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_preference_test">
+        <item>Item1</item>
+        <item>Item2</item>
+        <item>Item3</item>
+        <item>Item4</item>
+    </string-array>
+
+    <string-array name="list_preference_checked_test">
+        <item>Item1 checked</item>
+        <item>Item2 checked</item>
+        <item>Item3 checked</item>
+        <item>Item4 checked</item>
+    </string-array>
+</resources>
