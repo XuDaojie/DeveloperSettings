@@ -21,7 +21,7 @@ public class TestPreferenceActivity extends AppCompatPreferenceActivity {
         findPreference("show_touches").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Settings.System.putInt(getContentResolver(), "pointer_location",
+                Settings.System.putInt(getContentResolver(), "show_touches",
                         newValue == Boolean.TRUE ? 1 : 0);
                 return true;
             }
@@ -29,7 +29,7 @@ public class TestPreferenceActivity extends AppCompatPreferenceActivity {
         findPreference("point_location").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Settings.System.putInt(getContentResolver(), "show_touches",
+                Settings.System.putInt(getContentResolver(), "pointer_location",
                         newValue == Boolean.TRUE ? 1 : 0);
                 return true;
             }

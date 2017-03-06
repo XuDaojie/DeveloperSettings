@@ -2,13 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.xudaojie.developersettings">
 
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
-    <uses-permission android:name="android.permission.SET_ALWAYS_FINISH" />
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
+    <uses-permission android:name="android.permission.SET_ALWAYS_FINISH"/>
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -26,7 +26,8 @@
             </intent-filter>
         </activity>
         <!--<activity android:name=".SettingsActivity"/>-->
-        <service android:name="QuickSettingTile"
+        <service
+            android:name="QuickSettingTile"
             android:icon="@drawable/ic_info_black_24dp"
             android:label="Tile"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -34,9 +35,19 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
-        <service android:name="DevTiles"
+        <service
+            android:name=".DeveloperTiles$ShowTouches"
             android:icon="@drawable/ic_sync_black_24dp"
-            android:label="Dev"
+            android:label="ShowTouches"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".DeveloperTiles$PointLocation"
+            android:icon="@drawable/ic_sync_black_24dp"
+            android:label="PointLocation"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
