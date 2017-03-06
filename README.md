@@ -1,2 +1,2 @@
-DevelopTools
+DeveloperSettings
 ============
