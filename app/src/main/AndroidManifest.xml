@@ -27,18 +27,9 @@
         </activity>
         <!--<activity android:name=".SettingsActivity"/>-->
         <service
-            android:name="QuickSettingTile"
-            android:icon="@drawable/ic_info_black_24dp"
-            android:label="Tile"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-        </service>
-        <service
             android:name=".DeveloperTiles$ShowTouches"
-            android:icon="@drawable/ic_sync_black_24dp"
-            android:label="ShowTouches"
+            android:icon="@drawable/ic_touch_app_black_24dp"
+            android:label="显示点按操作反馈"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
@@ -46,8 +37,8 @@
         </service>
         <service
             android:name=".DeveloperTiles$PointLocation"
-            android:icon="@drawable/ic_sync_black_24dp"
-            android:label="PointLocation"
+            android:icon="@drawable/ic_control_point_duplicate_black_24dp"
+            android:label="指针位置"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>

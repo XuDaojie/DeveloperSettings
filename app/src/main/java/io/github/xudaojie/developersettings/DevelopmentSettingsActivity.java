@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
  */
 
 public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
-    private static final String TAG = "TestPreferenceActivity";
+    private static final String TAG = DevelopmentSettingsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +30,8 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
         findPreference("show_touches").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Settings.System.putInt(getContentResolver(), "show_touches",
+                Settings.System.putInt(getContentResolver(),
+                        Constants.SETTINGS_SYSTEM_SHOW_TOUCHES,
                         newValue == Boolean.TRUE ? 1 : 0);
                 return true;
             }
@@ -38,7 +39,8 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
         findPreference("point_location").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Settings.System.putInt(getContentResolver(), "pointer_location",
+                Settings.System.putInt(getContentResolver(),
+                        Constants.SETTINGS_SYSTEM_POINTER_LOCATION,
                         newValue == Boolean.TRUE ? 1 : 0);
                 return true;
             }
@@ -46,7 +48,9 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
         findPreference("debug_layout").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                String command = String.format("setprop debug.layout %s",
+                // setprop debug.layout true
+                String command = String.format("setprop %s %s",
+                        Constants.VIEW_DEBUG_LAYOUT_PROPERTY,
                         newValue == Boolean.TRUE ? "true" : "false");
                 ShellUtils.execCommand(command, true);
                 new SystemPropPoker().execute();
@@ -58,7 +62,8 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 // ThreadedRenderer.DEBUG_OVERDRAW_PROPERTY
-                String command = String.format("setprop debug.hwui.overdraw %s",
+                String command = String.format("setprop %s %s",
+                        Constants.THREADED_RENDERER_DEBUG_OVERDRAW_PROPERTY,
                         newValue.toString());
                 ShellUtils.execCommand(command, true);
                 new SystemPropPoker().execute();
@@ -76,7 +81,8 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 // ThreadedRenderer.PROFILE_PROPERTY
-                String command = String.format("setprop debug.hwui.profile %s",
+                String command = String.format("setprop %s %s",
+                        Constants.THREADED_RENDERER_PROFILE_PROPERTY,
                         newValue.toString());
                 ShellUtils.execCommand(command, true);
                 new SystemPropPoker().execute();
