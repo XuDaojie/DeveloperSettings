@@ -13,6 +13,7 @@ import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,6 +32,10 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
 //        addPreferencesFromResource(R.xml.pref_developerment_settings);
 
         addPreferencesFromResource(R.xml.pref_developerment_settings);
+        if(!ShellUtils.checkRootPermission()) {
+            Toast.makeText(this, "本程序需要在 root 环境下运行", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
