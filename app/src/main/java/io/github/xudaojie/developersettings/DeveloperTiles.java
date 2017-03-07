@@ -1,5 +1,6 @@
 package io.github.xudaojie.developersettings;
 
+import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
@@ -11,6 +12,18 @@ import android.support.annotation.RequiresApi;
  */
 
 public class DeveloperTiles {
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static class StartApp extends TileService {
+
+        @Override
+        public void onClick() {
+//            Intent i = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+//            startActivity(i);
+            Intent i = new Intent(this, DevelopmentSettingsActivity.class);
+            startActivity(i);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static class ShowTouches extends TileService {

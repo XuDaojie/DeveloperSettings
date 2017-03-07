@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:summary="摘要"
-    android:title="开发者选项">
+    android:title="开发者设置">
     <PreferenceCategory
         android:title="输入">
         <SwitchPreference
@@ -9,7 +9,7 @@
             android:summary="显示点按操作的视觉反馈"
             android:title="显示点按操作反馈"/>
         <SwitchPreference
-            android:key="point_location"
+            android:key="pointer_location"
             android:summary="屏幕叠加层显示当前触摸数据"
             android:title="指针位置"/>
     </PreferenceCategory>

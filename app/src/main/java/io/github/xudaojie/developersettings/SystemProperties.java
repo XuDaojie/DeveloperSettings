@@ -1,5 +1,7 @@
 package io.github.xudaojie.developersettings;
 
+import android.text.TextUtils;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -65,4 +67,7 @@ class SystemProperties {
         }
     }
 
+    public static boolean getBoolean(final String key) {
+        return TextUtils.equals(get(key), "true");
+    }
 }

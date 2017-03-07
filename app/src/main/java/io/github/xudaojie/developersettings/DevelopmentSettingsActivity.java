@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.RemoteException;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -26,8 +27,35 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        addPreferencesFromResource(R.xml.pref_developerment_settings);
+
         addPreferencesFromResource(R.xml.pref_developerment_settings);
-        findPreference("show_touches").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateAllOptions();
+    }
+
+    private void updateAllOptions() {
+        updateShowTouchesOptions();
+        updatePointerLocationOptions();
+        updateDebugLayoutOptions();
+        updateDebugHwOverdraw();
+        updateTrackFrameTime();
+    }
+
+    private void updateShowTouchesOptions() {
+        final SwitchPreference showTouchesPref = (SwitchPreference) findPreference("show_touches");
+        int enable = 0;
+        try {
+            enable = Settings.System.getInt(getContentResolver(), Constants.SETTINGS_SYSTEM_SHOW_TOUCHES);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        showTouchesPref.setChecked(enable == 1);
+
+        showTouchesPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Settings.System.putInt(getContentResolver(),
@@ -36,7 +64,19 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             }
         });
-        findPreference("point_location").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+    }
+
+    private void updatePointerLocationOptions() {
+        final SwitchPreference pointerLocationPref = (SwitchPreference) findPreference("pointer_location");
+        int enable = 0;
+        try {
+            enable = Settings.System.getInt(getContentResolver(), Constants.SETTINGS_SYSTEM_POINTER_LOCATION);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        pointerLocationPref.setChecked(enable == 1);
+
+        pointerLocationPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Settings.System.putInt(getContentResolver(),
@@ -45,7 +85,13 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             }
         });
-        findPreference("debug_layout").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+    }
+
+    private void updateDebugLayoutOptions() {
+        final SwitchPreference debugLayoutPref = (SwitchPreference) findPreference("debug_layout");
+        debugLayoutPref.setChecked(SystemProperties.getBoolean(Constants.VIEW_DEBUG_LAYOUT_PROPERTY));
+
+        debugLayoutPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 // setprop debug.layout true
@@ -57,8 +103,18 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             }
         });
+    }
+
+    private void updateDebugHwOverdraw() {
         // DevelopmentSettings.DEBUG_HW_OVERDRAW_KEY 调试GPU过度绘制
-        findPreference("debug_hw_overdraw").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        final ListPreference debugHwOverdrawPref = (ListPreference) findPreference("debug_hw_overdraw");
+        final CharSequence[] entries = debugHwOverdrawPref.getEntries();
+        String value = SystemProperties.get(Constants.THREADED_RENDERER_DEBUG_OVERDRAW_PROPERTY);
+        int idxOfValue = debugHwOverdrawPref.findIndexOfValue(value);
+        debugHwOverdrawPref.setValueIndex(idxOfValue);
+        debugHwOverdrawPref.setSummary(entries[idxOfValue]);
+
+        debugHwOverdrawPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 // ThreadedRenderer.DEBUG_OVERDRAW_PROPERTY
@@ -68,16 +124,24 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
                 ShellUtils.execCommand(command, true);
                 new SystemPropPoker().execute();
 
-                ListPreference listPreference = (ListPreference) preference;
-                CharSequence[] entries = listPreference.getEntries();
-                int indexOfValue = listPreference.findIndexOfValue(newValue.toString());
+                int indexOfValue = debugHwOverdrawPref.findIndexOfValue(newValue.toString());
                 preference.setSummary(entries[indexOfValue]);
 
                 return true;
             }
         });
+    }
+
+    private void updateTrackFrameTime() {
         // DevelopmentSettings.TRACK_FRAME_TIME_KEY GPU呈现模式分析
-        findPreference("track_frame_time").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        final ListPreference debugHwOverdraw = (ListPreference) findPreference("track_frame_time");
+        final CharSequence[] entries = debugHwOverdraw.getEntries();
+        String value = SystemProperties.get(Constants.THREADED_RENDERER_PROFILE_PROPERTY);
+        int idxOfValue = debugHwOverdraw.findIndexOfValue(value);
+        debugHwOverdraw.setValueIndex(idxOfValue);
+        debugHwOverdraw.setSummary(entries[idxOfValue]);
+
+        debugHwOverdraw.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 // ThreadedRenderer.PROFILE_PROPERTY
