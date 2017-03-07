@@ -1,5 +1,7 @@
 package io.github.xudaojie.developersettings;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -35,6 +37,16 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
     protected void onResume() {
         super.onResume();
         updateAllOptions();
+        findPreference("about").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse("https://github.com/XuDaojie/DeveloperSettings"));
+                i.createChooser(i, null);
+                startActivity(i);
+                return true;
+            }
+        });
     }
 
     private void updateAllOptions() {
