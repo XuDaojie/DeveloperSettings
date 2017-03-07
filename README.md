@@ -4,10 +4,10 @@ DeveloperSettings
 之前使用的是[Trinea](https://github.com/Trinea)的[开发助手](http://www.trinea.cn/android/android-develop-and-debug-tools/)，本来想在这之上适配 Android 7.0 新增加的Tile，后面发现未开源就开发了这个，目前功能没那么多，只增加了我自己常用的。
 <img src="https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181044.png"
         style="{width: 600; height: 800}">
-![](https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181044.png)
-![](https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181131.png)
-![](https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181244.png)
-![](https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181502.png)
+<!-- ![](https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181044.png) -->
+<!-- ![](https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181131.png) -->
+<!-- ![](https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181244.png) -->
+<!-- ![](https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181502.png) -->
 
 
 ## 原理
