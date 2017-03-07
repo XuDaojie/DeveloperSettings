@@ -12,7 +12,7 @@ DeveloperSettings
 直接参考了 Android 源码中设置的代码，对于里面使用到的隐藏Api，目前使用反射和Shell方式调用。
 
 ## Thanks
-[aosp-packages/apps/Settings](https://android.googlesource.com/a/platform/packages/apps/Settings/+/android-7.1.1_r14)
-[AndroidXRef](http://androidxref.com/7.1.1_r6/xref/packages/apps/Settings/src/com/android/settings/DevelopmentSettings.java#updateShowTouchesOptions)
+[aosp-packages/apps/Settings](https://android.googlesource.com/a/platform/packages/apps/Settings/+/android-7.1.1_r14)<br>
+[AndroidXRef](http://androidxref.com/7.1.1_r6/xref/packages/apps/Settings/src/com/android/settings/DevelopmentSettings.java#updateShowTouchesOptions)<br>
 [Trinea/android-common](https://github.com/Trinea/android-common/blob/master/src/cn/trinea/android/common/util/ShellUtils.java#L9)
 
