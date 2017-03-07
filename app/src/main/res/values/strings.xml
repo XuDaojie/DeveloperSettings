@@ -72,4 +72,28 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
+
+    <!-- start -->
+    <string-array name="list_pref_track_frame_time">
+        <item>关闭</item>
+        <item>在屏幕上显示为条形图</item>
+        <item>在 adb shell dumpsys gfxinfo 中</item>
+    </string-array>
+    <string-array name="list_pref_track_frame_time_values">
+        <item>false</item>
+        <item>visual_bars</item>
+        <item>true</item>
+    </string-array>
+    <string-array name="list_pref_debug_hw_overdraw">
+        <item>关闭</item>
+        <item>显示过度绘制区域</item>
+        <item>显示适合绿色弱视患者查看的区域</item>
+    </string-array>
+    <string-array name="list_pref_debug_hw_overdraw_values">
+        <item>false</item>
+        <item>show</item>
+        <item>show_deuteranomaly</item>
+    </string-array>
+    <!-- end -->
 </resources>

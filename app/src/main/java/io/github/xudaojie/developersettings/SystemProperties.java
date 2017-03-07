@@ -38,7 +38,7 @@ class SystemProperties {
         return null;
     }
 
-    public static void set(final String key, String value) {
+    public static void set(final String key, final String value) {
         if (sSystemPropertiesSetMethod == null) {
             try {
                 final Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
@@ -65,11 +65,4 @@ class SystemProperties {
         }
     }
 
-    public void ss() {
-        try {
-            Class ss = Class.forName("android.settings.DevelopmentSettings");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }
