@@ -23,17 +23,22 @@
     <PreferenceCategory
         android:title="硬件加速渲染">
         <ListPreference
+            android:defaultValue="false"
             android:entries="@array/list_pref_debug_hw_overdraw"
             android:entryValues="@array/list_pref_debug_hw_overdraw_values"
             android:key="debug_hw_overdraw"
+
+            android:summary="关闭"
             android:title="调试GPU过度绘制"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="媒体">
         <ListPreference
+            android:defaultValue="false"
             android:entries="@array/list_pref_track_frame_time"
             android:entryValues="@array/list_pref_track_frame_time_values"
             android:key="track_frame_time"
+            android:summary="关闭"
             android:title="GPU 呈现模式分析"/>
     </PreferenceCategory>
 </PreferenceScreen>
