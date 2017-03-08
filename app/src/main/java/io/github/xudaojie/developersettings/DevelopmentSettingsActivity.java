@@ -136,8 +136,10 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
         final CharSequence[] entries = debugHwOverdrawPref.getEntries();
         String value = SystemProperties.get(Constants.THREADED_RENDERER_DEBUG_OVERDRAW_PROPERTY);
         int idxOfValue = debugHwOverdrawPref.findIndexOfValue(value);
-        debugHwOverdrawPref.setValueIndex(idxOfValue);
-        debugHwOverdrawPref.setSummary(entries[idxOfValue]);
+        if (idxOfValue != -1) {
+            debugHwOverdrawPref.setValueIndex(idxOfValue);
+            debugHwOverdrawPref.setSummary(entries[idxOfValue]);
+        }
 
         debugHwOverdrawPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -163,8 +165,10 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
         final CharSequence[] entries = debugHwOverdraw.getEntries();
         String value = SystemProperties.get(Constants.THREADED_RENDERER_PROFILE_PROPERTY);
         int idxOfValue = debugHwOverdraw.findIndexOfValue(value);
-        debugHwOverdraw.setValueIndex(idxOfValue);
-        debugHwOverdraw.setSummary(entries[idxOfValue]);
+        if (idxOfValue != -1) {
+            debugHwOverdraw.setValueIndex(idxOfValue);
+            debugHwOverdraw.setSummary(entries[idxOfValue]);
+        }
 
         debugHwOverdraw.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override

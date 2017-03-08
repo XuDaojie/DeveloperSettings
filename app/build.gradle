@@ -7,8 +7,8 @@ android {
         applicationId "io.github.xudaojie.developersettings"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 4
-        versionName "0.4.0"
+        versionCode 5
+        versionName "0.4.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
