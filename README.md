@@ -4,8 +4,8 @@ DeveloperSettings
 之前使用的是[Trinea](https://github.com/Trinea)的[开发助手](http://www.trinea.cn/android/android-develop-and-debug-tools/)，本来想在这之上适配 Android 7.0 新增加的Tile，后面发现未开源就开发了这个，目前功能没那么多，只增加了我自己常用的。
 
 ## 下载
- [<img alt="Get it on Google Play" height="45px" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" />][1]<br>
-[app-release](https://raw.githubusercontent.com/XuDaojie/DeveloperSettings/master/app-release.apk)
+[app-release](https://raw.githubusercontent.com/XuDaojie/DeveloperSettings/master/app-release.apk)、 [<img alt="Get it on Google Play" height="45px" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" />][1]<br>
+
 
 ## 原理
 - [开发助手](http://www.trinea.cn/android/android-develop-and-debug-tools/)使用的是Accessibility机制，优点是无需root，但是兼容性可能差点，毕竟现在每个手机厂商对ui都是有改动的。<br>
