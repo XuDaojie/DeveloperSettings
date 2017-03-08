@@ -16,7 +16,7 @@ DeveloperSettings
 ## Thanks
 [aosp-packages/apps/Settings](https://android.googlesource.com/a/platform/packages/apps/Settings/+/android-7.1.1_r14)<br>
 [AndroidXRef](http://androidxref.com/7.1.1_r6/xref/packages/apps/Settings/src/com/android/settings/DevelopmentSettings.java#updateShowTouchesOptions)<br>
-[Trinea/android-common](https://github.com/Trinea/android-common/blob/master/src/cn/trinea/android/common/util/ShellUtils.java#L9)
+[Trinea/android-common-ShellUtils](https://github.com/Trinea/android-common/blob/master/src/cn/trinea/android/common/util/ShellUtils.java#L9)
 
 
 
