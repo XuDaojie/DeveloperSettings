@@ -32,7 +32,7 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
 //        addPreferencesFromResource(R.xml.pref_developerment_settings);
 
         addPreferencesFromResource(R.xml.pref_developerment_settings);
-        if(!ShellUtils.checkRootPermission()) {
+        if (!ShellUtils.checkRootPermission()) {
             Toast.makeText(this, "本程序需要在 root 环境下运行", Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -42,6 +42,14 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
     protected void onResume() {
         super.onResume();
         updateAllOptions();
+        findPreference("development_options").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent i = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+                startActivity(i);
+                return true;
+            }
+        });
         findPreference("about").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -180,7 +188,7 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
 
     public static class SystemPropPoker extends AsyncTask<Void, Void, Void> {
         // IBinder.SYSPROPS_TRANSACTION
-        private static final int SYSPROPS_TRANSACTION = ('_'<<24)|('S'<<16)|('P'<<8)|'R';
+        private static final int SYSPROPS_TRANSACTION = ('_' << 24) | ('S' << 16) | ('P' << 8) | 'R';
 
         @Override
         protected Void doInBackground(Void... params) {

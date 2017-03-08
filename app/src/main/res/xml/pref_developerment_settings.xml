@@ -41,8 +41,15 @@
             android:summary="关闭"
             android:title="GPU 呈现模式分析"/>
     </PreferenceCategory>
-    <Preference
-        android:key="about"
-        android:title="关于"
-        android:summary="https://github.com/XuDaojie/DeveloperSettings"/>
+    <PreferenceCategory
+        android:title="系统">
+        <Preference
+            android:key="development_options"
+            android:title="开发者选项"/>
+        <Preference
+            android:key="about"
+            android:summary="https://github.com/XuDaojie/DeveloperSettings"
+            android:title="关于"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>
