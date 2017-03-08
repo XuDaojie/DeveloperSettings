@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Parcel;
 import android.os.RemoteException;
 import android.preference.ListPreference;
@@ -13,7 +15,6 @@ import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,6 +26,21 @@ import java.lang.reflect.Method;
 public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
     private static final String TAG = DevelopmentSettingsActivity.class.getSimpleName();
 
+    private boolean mRootPermission = false;
+    private Handler mRootHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mDebugLayoutPref.setEnabled(mRootPermission);
+            mDebugHwOverdrawPref.setEnabled(mRootPermission);
+            mDebugHwOverdraw.setEnabled(mRootPermission);
+        }
+    };
+
+    private SwitchPreference mDebugLayoutPref;
+    private ListPreference mDebugHwOverdrawPref;
+    private ListPreference mDebugHwOverdraw;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,15 +48,19 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
 //        addPreferencesFromResource(R.xml.pref_developerment_settings);
 
         addPreferencesFromResource(R.xml.pref_developerment_settings);
-        if (!ShellUtils.checkRootPermission()) {
-            Toast.makeText(this, "本程序需要在 root 环境下运行", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+
+        mDebugLayoutPref = (SwitchPreference) findPreference("debug_layout");
+        // DevelopmentSettings.DEBUG_HW_OVERDRAW_KEY 调试GPU过度绘制
+        mDebugHwOverdrawPref = (ListPreference) findPreference("debug_hw_overdraw");
+        // DevelopmentSettings.TRACK_FRAME_TIME_KEY GPU呈现模式分析
+        mDebugHwOverdraw = (ListPreference) findPreference("track_frame_time");
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        checkRootPermission();
         updateAllOptions();
         findPreference("development_options").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -60,6 +80,18 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             }
         });
+    }
+
+    private void checkRootPermission() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                // 耗时操作
+                mRootPermission = ShellUtils.checkRootPermission();
+                mRootHandler.sendEmptyMessage(0);
+            }
+        }.start();
     }
 
     private void updateAllOptions() {
@@ -113,10 +145,9 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
     }
 
     private void updateDebugLayoutOptions() {
-        final SwitchPreference debugLayoutPref = (SwitchPreference) findPreference("debug_layout");
-        debugLayoutPref.setChecked(SystemProperties.getBoolean(Constants.VIEW_DEBUG_LAYOUT_PROPERTY));
+        mDebugLayoutPref.setChecked(SystemProperties.getBoolean(Constants.VIEW_DEBUG_LAYOUT_PROPERTY));
 
-        debugLayoutPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        mDebugLayoutPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 // setprop debug.layout true
@@ -131,17 +162,15 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
     }
 
     private void updateDebugHwOverdraw() {
-        // DevelopmentSettings.DEBUG_HW_OVERDRAW_KEY 调试GPU过度绘制
-        final ListPreference debugHwOverdrawPref = (ListPreference) findPreference("debug_hw_overdraw");
-        final CharSequence[] entries = debugHwOverdrawPref.getEntries();
+        final CharSequence[] entries = mDebugHwOverdrawPref.getEntries();
         String value = SystemProperties.get(Constants.THREADED_RENDERER_DEBUG_OVERDRAW_PROPERTY);
-        int idxOfValue = debugHwOverdrawPref.findIndexOfValue(value);
+        int idxOfValue = mDebugHwOverdrawPref.findIndexOfValue(value);
         if (idxOfValue != -1) {
-            debugHwOverdrawPref.setValueIndex(idxOfValue);
-            debugHwOverdrawPref.setSummary(entries[idxOfValue]);
+            mDebugHwOverdrawPref.setValueIndex(idxOfValue);
+            mDebugHwOverdrawPref.setSummary(entries[idxOfValue]);
         }
 
-        debugHwOverdrawPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        mDebugHwOverdrawPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 // ThreadedRenderer.DEBUG_OVERDRAW_PROPERTY
@@ -151,7 +180,7 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
                 ShellUtils.execCommand(command, true);
                 new SystemPropPoker().execute();
 
-                int indexOfValue = debugHwOverdrawPref.findIndexOfValue(newValue.toString());
+                int indexOfValue = mDebugHwOverdrawPref.findIndexOfValue(newValue.toString());
                 preference.setSummary(entries[indexOfValue]);
 
                 return true;
@@ -160,17 +189,16 @@ public class DevelopmentSettingsActivity extends AppCompatPreferenceActivity {
     }
 
     private void updateTrackFrameTime() {
-        // DevelopmentSettings.TRACK_FRAME_TIME_KEY GPU呈现模式分析
-        final ListPreference debugHwOverdraw = (ListPreference) findPreference("track_frame_time");
-        final CharSequence[] entries = debugHwOverdraw.getEntries();
+
+        final CharSequence[] entries = mDebugHwOverdraw.getEntries();
         String value = SystemProperties.get(Constants.THREADED_RENDERER_PROFILE_PROPERTY);
-        int idxOfValue = debugHwOverdraw.findIndexOfValue(value);
+        int idxOfValue = mDebugHwOverdraw.findIndexOfValue(value);
         if (idxOfValue != -1) {
-            debugHwOverdraw.setValueIndex(idxOfValue);
-            debugHwOverdraw.setSummary(entries[idxOfValue]);
+            mDebugHwOverdraw.setValueIndex(idxOfValue);
+            mDebugHwOverdraw.setSummary(entries[idxOfValue]);
         }
 
-        debugHwOverdraw.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        mDebugHwOverdraw.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 // ThreadedRenderer.PROFILE_PROPERTY
