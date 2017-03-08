@@ -6,14 +6,14 @@ DeveloperSettings
 ## 下载
 [<img alt="Get it on Google Play" height="45px" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" />][1]<br>
 
+## 原理
+直接参考了 Android 源码中设置的代码，对于里面使用到的隐藏Api，目前使用反射和Shell方式调用。
+
 ## 截图
 <img src="https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181044.png" width="240" height="400">
 <img src="https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181131.png" width="240" height="400">
 <img src="https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181244.png" width="240" height="400">
 <img src="https://github.com/XuDaojie/DeveloperSettings/blob/master/image/device-2017-03-07-181502.png" width="240" height="400">
-
-## 原理
-直接参考了 Android 源码中设置的代码，对于里面使用到的隐藏Api，目前使用反射和Shell方式调用。
 
 ## Thanks
 [aosp-packages/apps/Settings](https://android.googlesource.com/a/platform/packages/apps/Settings/+/android-7.1.1_r14)<br>
