@@ -134,4 +134,4 @@ fabric.properties
 /build
 /captures
 .externalNativeBuild
-!app/app-release.apk
+!app-release.apk
